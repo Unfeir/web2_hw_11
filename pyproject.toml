@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "hw-11"
+version = "0.1.0"
+description = ""
+authors = ["Anton Holovin <54354764+Unfeir@users.noreply.github.com>"]
+readme = "README.md"
+packages = [{include = "hw_11"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.95.0"
+uvicorn = {extras = ["standart"], version = "^0.21.1"}
+sqlalchemy = "^2.0.8"
+psycopg2-binary = "^2.9.5"
+alembic = "^1.10.2"
+pydentic = {extras = ["email"], version = "^0.0.1.dev3"}
+pydantic = {extras = ["email"], version = "^1.10.7"}
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
