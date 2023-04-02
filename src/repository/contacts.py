@@ -17,20 +17,26 @@ async def get_contact(contact_id, db: Session):
 
 
 async def search_contact(db, first_name=None, last_name=None, email=None):
-    print(f'{first_name=}, {last_name=}, {email=}')
+    print(first_name.capitalize())
     contacts = None
     if first_name and last_name:
-        contacts = db.query(Contact).filter(Contact.first_name == first_name, Contact.last_name == last_name).all()
+        contacts = db.query(Contact).filter(Contact.first_name == first_name.capitalize(), Contact.last_name == last_name.capitalize()).all()
     if first_name:
-        contacts = db.query(Contact).filter(Contact.first_name == first_name).all()
+        contacts = db.query(Contact).filter(Contact.first_name == first_name.capitalize()).all()
     if email:
-        contacts = db.query(Contact).filter(Contact.email == email).all()
+        contacts = db.query(Contact).filter(Contact.email == email.lower()).all()
 
     return contacts
 
 
 async def add_contact(body: ContactModel, db: Session):
-    contact = Contact(**body.dict())
+    contact = Contact(first_name=body.first_name.capitalize(),
+                      last_name=body.last_name.capitalize(),
+                      email=body.email,
+                      phone_number=body.phone_number,
+                      birthday=body.birthday,
+                      address=body.address)
+
     db.add(contact)
     db.commit()
     db.refresh(contact)
